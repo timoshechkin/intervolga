@@ -1,7 +1,7 @@
 <?php
 
 function revertCharacters($str) {
-	  $zn_pr_arr = array("!", ".");	//Создаем массив со знаками препинания
+	  $zn_pr_arr = array("!", ".");	//Создаем массив со знаками препинания (можно добавить и другие знаки припинания при необходимости)
 	  $substr_arr=explode(" ",$str);	//Разбиваем строку на подстроки по пробелам
 	  foreach ($substr_arr as &$substr)	//Перебираем подстроки
 	  {
@@ -13,22 +13,23 @@ function revertCharacters($str) {
 		{
 			if(in_array($symb_arr[$i],$zn_pr_arr))
 			{
-				$zn_pr = $symb_arr[$i];	//Если символ в подстроке является знаком препинания, то сохраняем его в переменную $zn_pr
+				$zn_pr = $symb_arr[$i];	//Если символ в подстроке является знаком препинания "!" или ".", то сохраняем его в переменную $zn_pr
 			}
 			else
 			{
 				$res_substr .= $symb_arr[$i];	//Собираем слово
-				if($symb_arr[$i]===mb_strtoupper($symb_arr[$i])) $status_upper=true;
+				if($symb_arr[$i]===mb_strtoupper($symb_arr[$i])) $status_upper=true;	//Если текущий символ в верхнем регистре, для текущего слова присваиваем переменной $status_upper значение true 
 			}
 		}
-		if($status_upper)
+		if($status_upper)	//Если слово содержит символ в верхнем регистре, то
 		{
-			$res_substr=mb_strtolower($res_substr);//переводим в нижний регистр всю подстроку
-			$res_substr = mb_strtoupper(mb_substr($res_substr,0,1)).mb_substr($res_substr,1)
+			$res_substr=mb_strtolower($res_substr);	//Переводим в нижний регистр всю подстроку
+			$res_substr = mb_strtoupper(mb_substr($res_substr,0,1)).mb_substr($res_substr,1);	//Переводим первый символ в верхний регистр
 		}
-		echo $res_substr.$zn_pr." ";
+		echo $res_substr.$zn_pr." ";	//Собираем строку
 	}
 }
+
 $result = revertCharacters("Привет! Давно не виделись.");
 echo $result; // Тевирп! Онвад ен ьсиледив.
 
