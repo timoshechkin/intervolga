@@ -1,11 +1,14 @@
-public function revertCharacters($str) {
+function revertCharacters($str) {
   $substr_arr=explode(" ",$str);
   foreach ($substr_arr as &$substr) {
-    
-      for(i=strlen($substr)-1; i>=0; i--){
-        if()
-        $res_str .= $res_str + 
+    $symb_arr=preg_split("//u", $substr, -1, PREG_SPLIT_NO_EMPTY);
+        //echo count($symb_arr)."<br>";
+		for($i=(count($symb_arr)-1); $i>=0; $i--){
+		  //if()
+		  //$res_str .= $res_str + 
+		  echo $symb_arr[$i];
       }
+    echo " ";
   }
 }
 $result = revertCharacters("Привет! Давно не виделись.");
