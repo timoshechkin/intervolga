@@ -1,15 +1,33 @@
+<?php
+
 function revertCharacters($str) {
+  $zn_pr_arr = array("!", ".");
   $substr_arr=explode(" ",$str);
   foreach ($substr_arr as &$substr) {
     $symb_arr=preg_split("//u", $substr, -1, PREG_SPLIT_NO_EMPTY);
-        //echo count($symb_arr)."<br>";
+    	$zn_pr ="";
+    	$status_upper =false;
+    	$res_substr = "";
+    
 		for($i=(count($symb_arr)-1); $i>=0; $i--){
-		  //if()
-		  //$res_str .= $res_str + 
-		  echo $symb_arr[$i];
+		  if(in_array($symb_arr[$i],$zn_pr_arr)){
+            $zn_pr = $symb_arr[$i];
+          }
+          else{
+            $res_substr .= $symb_arr[$i];
+		  	if($symb_arr[$i]===mb_strtoupper($symb_arr[$i])) $status_upper=true;
+            //echo $symb_arr[$i];}
+         	//echo ctype_upper("G");
+          }
       }
-    echo " ";
+	if($status_upper){
+      $res_substr=mb_strtolower($res_substr);
+    }
+    //echo $status_upper."<br>";
+    echo $res_substr.$zn_pr." ";
   }
 }
 $result = revertCharacters("Привет! Давно не виделись.");
 echo $result; // Тевирп! Онвад ен ьсиледив.
+
+?>
